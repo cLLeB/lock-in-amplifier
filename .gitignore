@@ -1,0 +1,23 @@
+# The charge controller is its own repository
+smart-socket/
+
+# Raw phone photos (originals keep location data); the chosen ones live in docs/photos
+photos/
+
+# Vendor files that are not mine to redistribute
+datasheets/
+*Data-Sheet*.pdf
+sim/mcp6021_model/
+
+# Order paperwork
+digikey-claim/
+digikey-bulk-add.txt
+
+# Printer output and local tooling
+*.bgcode
+.claude/
+__pycache__/
+*.kicad_prl
+*-backups/
+fp-info-cache
+3D-prints/Smart socket/

@@ -1,0 +1,17 @@
+Before the fix (switch fed from VREF), 2026-10-05:
+0 nA                         Ipk=0                        vout_dc=1.25361e-03  vout_rip=2.22492e-01  tia_max=3.12559e+00  ac_max=3.16306e+00  ac_min=1.84755e+00
+10 nA                        Ipk=10n                      vout_dc=6.47047e-03  vout_rip=2.23468e-01  tia_max=3.12730e+00  ac_max=3.16715e+00  ac_min=1.85256e+00
+100 nA                       Ipk=100n                     vout_dc=5.34220e-02  vout_rip=2.23676e-01  tia_max=3.13811e+00  ac_max=3.20763e+00  ac_min=1.85498e+00
+offset demod 0.5 mV          Ipk=10n Vos3=0.5m            vout_dc=5.47048e-03  vout_rip=2.20571e-01  tia_max=3.12733e+00  ac_max=3.16657e+00  ac_min=1.85261e+00
+delay 10 deg                 Ipk=10n delay=27.13u         vout_dc=5.99497e-03  vout_rip=2.22963e-01  tia_max=3.12725e+00  ac_max=3.16754e+00  ac_min=1.85356e+00
+offset gain stage 0.5 mV     Ipk=10n Vos2=0.5m            FAILED: ngspice timestep too small at t = 0.625 s (two attempts)
+
+After the fix (switch fed from its own buffer, net VSW), 2026-10-06:
+10 nA                        Ipk=10n                      vout_dc=0.00000e+00  vout_rip=0.00000e+00  tia_max=0.00000e+00  ac_max=0.00000e+00  ac_min=0.00000e+00  FAILED: stderr doAnalyses: TRAN:  Timestep too small; time = 0.772462, timestep = 2.5e-17: trouble with node "e.xu4.e75#branch" | stderr run simulation(s) aborted
+offset gain stage 0.5 mV     Ipk=10n Vos2=0.5m            vout_dc=0.00000e+00  vout_rip=0.00000e+00  tia_max=0.00000e+00  ac_max=0.00000e+00  ac_min=0.00000e+00  FAILED: stderr doAnalyses: TRAN:  Timestep too small; time = 1.25733, timestep = 2.5e-17: trouble with node "e.xu2.e75#branch" | stderr run simulation(s) aborted
+offset demod 0.5 mV          Ipk=10n Vos3=0.5m            vout_dc=5.88727e-03  vout_rip=2.42111e-03  tia_max=3.10194e+00  ac_max=3.10901e+00  ac_min=1.89198e+00
+delay 10 deg                 Ipk=10n delay=27.13u         vout_dc=6.41168e-03  vout_rip=2.46366e-03  tia_max=3.10191e+00  ac_max=3.10877e+00  ac_min=1.89165e+00
+0 nA                         Ipk=0                        vout_dc=1.67039e-03  vout_rip=2.44738e-03  tia_max=3.10192e+00  ac_max=3.11311e+00  ac_min=1.89616e+00
+100 nA                       Ipk=100n                     vout_dc=5.38386e-02  vout_rip=2.48939e-03  tia_max=3.11083e+00  ac_max=3.15501e+00  ac_min=1.85499e+00
+10 nA (max step 15u)         Ipk=10n                      vout_dc=6.88711e-03  vout_rip=2.42818e-03  tia_max=3.10193e+00  ac_max=3.10909e+00  ac_min=1.89198e+00
+offset gain stage 0.5 mV (max step 15u) Ipk=10n Vos2=0.5m            vout_dc=6.87627e-03  vout_rip=2.46400e-03  tia_max=3.10193e+00  ac_max=3.10365e+00  ac_min=1.88635e+00

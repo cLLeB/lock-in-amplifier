@@ -1,0 +1,132 @@
+LOCK-IN AMPLIFIER - WHAT TO BUY AND WHERE
+Updated 2026-10-09. This is the one list to shop from.
+The number in front is how many. The code is what to type in the shop's search box.
+Prices are each, in euros, before VAT, read on digikey.fr on 2026-10-09 (lines marked * were read on 2026-10-06).
+
+Plan: breadboard test first (steps in BREADBOARD-GUIDE.md). The circuit board is ordered only after the breadboard works.
+
+
+=====================================================================================
+GROUP 1 - ONE ONLINE ORDER AT DIGIKEY (the exact cart lines are in digikey-bulk-add.txt)
+=====================================================================================
+Everything in group 1 goes in ONE order. Two orders would pay delivery twice.
+
+1A. USED ON THE BREADBOARD FIRST, THEN SOLDERED ON THE BOARD
+
+2   BPW34                 1.20    Photodiode (the light sensor)
+2   AB26T-32.768KHZ       0.25    Watch crystal, 32.768 kHz (small metal cylinder)
+3   2N7000                0.57    MOSFET transistor, 3 legs. The one made by onsemi (DigiKey code 2N7000FS-ND)
+3   WP7113SURDK           0.25    Red LED, 5 mm, high brightness
+2   LP2950ACZ-5.0/NOPB    1.15    5 volt regulator, 3 legs
+3   1N4148TR              0.09*   Small glass diode
+1   BS6I-MC               1.56*   9 V battery clip with two wires
+4   ESK106M050AC3AA       0.17    Electrolytic capacitor, 10 uF (small can). Breadboard uses 3
+3   R82DC4100DQ60J        0.58    Film capacitor, 1 uF (small plastic box)
+                                  Subtotal 1A: about 10.95
+
+1B. FOR THE BREADBOARD ONLY (parts with legs)
+
+1   BB830                 7.86    Breadboard, 830 holes
+4   MCP6022-I/P           1.65    Op amp chip, 8 legs, plug-in type. Breadboard uses 3
+2   CD74HC4053E           1.00    Analog switch chip, 16 legs, plug-in type. Breadboard uses 1
+2   CD74HC4060E           1.19    Counter / divider chip, 16 legs, plug-in type. Breadboard uses 1
+10  MFR-25FBF52-100R      0.037   Resistor, 100 ohm. Breadboard uses 3
+10  MFR-25FBF52-680R      0.037   Resistor, 680 ohm. Breadboard uses 1
+10  MFR-25FBF52-1K        0.037   Resistor, 1 kilohm. Breadboard uses 1
+10  MFR-25FBF52-10K       0.037   Resistor, 10 kilohm. Breadboard uses 5
+10  MFR-25FBF52-100K      0.037   Resistor, 100 kilohm. Breadboard uses 5
+10  MFR-25FBF52-330K      0.037   Resistor, 330 kilohm. Breadboard uses 1
+10  CFR-25JB-52-10M       0.033   Resistor, 10 megohm. Breadboard uses 1
+3   C315C220J1G5TA        0.60    Ceramic capacitor, 22 pF. Breadboard uses 2
+2   C315C101J1G5TA        0.63    Ceramic capacitor, 100 pF. Breadboard uses 1
+2   K103K15X7RF5TL2       0.25    Ceramic capacitor, 10 nF. Breadboard uses 1
+10  K104K15X7RF5TL2       0.149   Ceramic capacitor, 100 nF. Breadboard uses 5
+                                  Subtotal 1B: about 26.20
+    Resistors and the 100 nF capacitor are cheaper per piece in tens, so 10 costs less than 5.
+
+1C. FOR THE CIRCUIT BOARD ONLY (flat parts, soldered on top)
+
+4   MCP6022-I/SN          1.55    Op amp chip, 8 legs, flat type. Board uses 3
+2   74HC4053D,653         0.35    Analog switch chip, 16 legs, flat type. Board uses 1
+2   74HC4060D,653         0.35    Counter / divider chip, 16 legs, flat type. Board uses 1
+10  RC0805FR-07100RL      0.029*  Resistor, 100 ohm, size 0805. Board uses 3
+10  RC0805FR-07680RL      0.029*  Resistor, 680 ohm. Board uses 1
+10  RC0805FR-071KL        0.029*  Resistor, 1 kilohm. Board uses 1
+10  RC0805FR-0710KL       0.029*  Resistor, 10 kilohm. Board uses 5
+10  RC0805FR-07100KL      0.031*  Resistor, 100 kilohm. Board uses 5
+10  RC0805FR-07330KL      0.029*  Resistor, 330 kilohm. Board uses 1
+10  RC0805FR-0710ML       0.031*  Resistor, 10 megohm. Board uses 1
+10  CC0805JRNPO9BN220     0.075*  Ceramic capacitor, 22 pF, size 0805. Board uses 2
+10  C0805C101J5GACTU      0.091*  Ceramic capacitor, 100 pF. Board uses 1
+10  GRM2195C1H103JA01D    0.10*   Ceramic capacitor, 10 nF. Board uses 1
+10  CC0805KRX7R9BB104     0.084*  Ceramic capacitor, 100 nF. Board uses 5
+10  CC0805KKX7R7BB105     0.141   Ceramic capacitor, 1 uF. Board uses 1
+                                  Subtotal 1C: about 14.55
+
+TOTAL GROUP 1: about 53 before VAT, about 64 with VAT, before delivery (39 lines).
+
+1D. SMART CHARGE SWITCH (second project, see smart-socket\DESIGN.md). Added 2026-10-09.
+    All lines read on digikey.fr on 2026-10-09: in stock.
+
+1   113991054             4.61    Controller board with Wi-Fi (Seeed XIAO ESP32-C3)
+1   4090                  2.59    USB-C socket on a small board (Adafruit)
+2   SI4435DDY-T1-GE3      1.06    Power transistor, flat 8-leg type. Uses 1
+1   PA0001                3.06    Adapter board for a flat 8-leg chip (Chip Quik)
+2   1N5817-T              0.32    Schottky diode. Uses 1
+1   SB400                 4.83    Solderable prototype board, for the final soldered build
+10  MFR-25FBF52-4K7       0.039   Resistor, 4.7 kilohm. Uses 1
+10  MFR-25FBF52-5K1       0.037   Resistor, 5.1 kilohm. Spare in case the USB-C socket board lacks them
+10  MFR-25FBF52-12K       0.037   Resistor, 12 kilohm. Uses 1
+10  MFR-25FBF52-33K       0.037   Resistor, 33 kilohm. Uses 1
+2   2N7000                0.57    Same MOSFET as in 1A, 2 more (the cart has 5 in one line). Uses 1
+10  MFR-25FBF52-100K      0.037   Resistor, 100 kilohm, 15 more (the cart has 25 in one line: 25 cost about the same as 20). Uses 5
+2   ESK106M050AC3AA       0.17    Same 10 uF capacitor as in 1A, 6 more (the cart has 10: 10 cost the same as 6). Uses 1
+                                  Subtotal 1D: about 21.20
+    Also uses spares from 1A and 1B: one 680 ohm resistor, two 100 nF capacitors, one red LED.
+    Not from DigiKey: one USB-C to USB-C cable to cut in half (any basic 3 A / 60 W one, about 3 euros).
+
+1E. ALSO IN THIS ORDER
+
+1   EN22                  2.89    9 V alkaline battery (Energizer). Replaces group 2
+    The jumper wire kit BC-32625 (6.36) is NOT in the order: it is no longer needed to reach
+    free delivery. Use the lab's solid-core wire if the 30 jumpers run out.
+
+ORDERED AND PAID 2026-10-09: DigiKey order 102158958, 92.64 euros with VAT, delivery free.
+SHOP CHOSEN 2026-10-09: DigiKey. Target: 75 euros before VAT, which makes delivery free
+(90 with VAT). 1A to 1E come to about 77.20 before VAT, about 93 with VAT, delivery free.
+
+Delivery (read on the sites 2026-10-09):
+    DigiKey (digikey.fr)    25 euros under 75 euros before VAT, free from 75.
+    Mouser (mouser.fr)      25 euros (FedEx) under 75 euros, free from 75. Its BOM tool failed twice.
+    Farnell (fr.farnell.com) Free from 50 euros, but the plug-in 74HC4053 and 74HC4060 are not stocked.
+
+
+=====================================================================================
+GROUP 2 - ANY SUPERMARKET OR DIY SHOP
+=====================================================================================
+
+1   USB-C to USB-C cable, basic 3 A / 60 W, to cut in half for the smart charge switch
+    (The 9 V battery is now in the DigiKey order, section 1E.)
+
+
+=====================================================================================
+GROUP 3 - USE AT THE LAB, DO NOT BUY
+=====================================================================================
+
+    Soldering iron with a fine tip, solder wire, flux, tweezers, desoldering braid,
+    side cutters, magnifier, multimeter, oscilloscope with a probe, signal generator
+
+
+=====================================================================================
+GROUP 4 - PCB MAKER, ONLY AFTER THE BREADBOARD WORKS
+=====================================================================================
+
+    Upload kicad\lockin-gerbers.zip. 2 layers, 90 x 60 mm, 1.6 mm thick, lowest quantity.
+
+
+=====================================================================================
+ALREADY HAVE - DO NOT BUY
+=====================================================================================
+
+    Pin header strip, 40 pins
+    Jumper wires (about 30). The breadboard needs 37; the lab has wire for the rest.

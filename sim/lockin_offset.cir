@@ -1,0 +1,62 @@
+* Lock-in amplifier - effect of op amp input offset and clock duty-cycle error
+* Same circuit as lockin_tran.cir with a fixed 10 nA signal.
+* k=1 no offsets            k=2 0.5 mV on gain stage U2
+* k=3 0.5 mV on demod U3    k=4 0.5 mV on output buffer U4
+* k=5 0.5 mV on U2 and a 49 % duty clock
+* k=6 0.5 mV on the switch buffer Us
+
+.param fref=1024 T={1/fref}
+.param Ipk=10n
+.step param k list 1 2 3 4 5 6
+.param vos2={if(k==2 | k==5, 0.5m, 0)}
+.param vos3={if(k==3, 0.5m, 0)}
+.param vos4={if(k==4, 0.5m, 0)}
+.param vos5={if(k==6, 0.5m, 0)}
+.param duty={if(k==5, 0.49, 0.5)}
+
+Vcc  vcc 0 5
+
+Rv1  vcc vmid 10k
+Rv2  vmid 0 10k
+Cv   vmid 0 10u
+XUv  vmid vref vcc 0 vref level2 Avol=1Meg GBW=10Meg Slew=7Meg ilimit=20m rail=0.02
+* Second 2.5 V buffer, used only by the analog switch (U3B, net VSW in the KiCad schematic)
+XUs  vref vsw vcc 0 vsw level2 Avol=1Meg GBW=10Meg Slew=7Meg ilimit=20m rail=0.02 Vos={vos5}
+
+Vclk ref 0 PULSE(0 5 0 1u 1u {T*duty} {T})
+Bnb  refb 0 V=5-V(ref)
+
+Isig   inn 0 PULSE(0 {Ipk} 0 1u 1u {T*duty} {T})
+Iamb   inn 0 DC 5u
+Iflick inn 0 SIN(0 1u 100)
+Cpd    inn 0 70p
+
+XU1  vref inn vcc 0 tia level2 Avol=1Meg GBW=10Meg Slew=7Meg ilimit=20m rail=0.02
+Rf   inn tia 100k
+Cf   inn tia 100p
+
+Chp  tia hp 10n
+Rhp  hp vref 100k
+XU2  hp gn vcc 0 ac level2 Avol=1Meg GBW=10Meg Slew=7Meg ilimit=20m rail=0.02 Vos={vos2}
+Rg1  gn vref 1k
+Rg2  gn ac 10k
+
+Ra   ac dn 10k
+Rb   dn dem 10k
+S1   ac dp ref 0 SW4053
+S2   vsw dp refb 0 SW4053
+XU3  dp dn vcc 0 dem level2 Avol=1Meg GBW=10Meg Slew=7Meg ilimit=20m rail=0.02 Vos={vos3}
+.model SW4053 SW(Ron=100 Roff=100Meg Vt=2.5 Vh=0.5)
+
+Rl1  dem f1 100k
+Cl1  f1 vref 1u
+Rl2  f1 f2 100k
+Cl2  f2 vref 1u
+XU4  f2 out vcc 0 out level2 Avol=1Meg GBW=10Meg Slew=7Meg ilimit=20m rail=0.02 Vos={vos4}
+
+.lib UniversalOpAmp2.lib
+
+.save V(out) V(vref)
+.tran 0 3 0 20u
+.meas TRAN vout_dc AVG V(out,vref) FROM 2.5 TO 3
+.end

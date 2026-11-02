@@ -1,0 +1,44 @@
+* Lock-in amplifier - noise of the front end (photodiode, transimpedance stage, high-pass, gain)
+* Linear noise analysis up to the demodulator input (node ac). The demodulator and low-pass
+* then pass a 0.83 Hz wide slice of this noise around 1024 Hz and its odd harmonics.
+*
+* Op amp: LTspice generic model with MCP6022 datasheet figures:
+*   voltage noise 8.7 nV/rtHz (white), current noise 3 fA/rtHz, 10 MHz, 7 V/us.
+*   Enk (1/f corner) = 555 Hz is derived from the datasheet's 2.9 uVpp in 0.1 to 10 Hz, not read from it.
+* This is not Microchip's own macro model (its download was blocked on 2026-10-05).
+
+.param Iamb=5u
+* k: 1 = everything, 2 = no ambient shot noise, 3 = noiseless op amps
+.step param k list 1 2 3
+.param shot={if(k==2,0,1)} opn={if(k==3,0,1)}
+
+Vcc  vcc 0 5
+Vref vref 0 2.5
+
+* Photodiode: ideal sources are noiseless in SPICE, so the shot noise of the ambient
+* photocurrent, sqrt(2 q I), is made by a resistor whose thermal noise current equals it
+* (R = 2kT/(qI)), copied into the input node by Fshot.
+Isig  inn 0 DC {Iamb} AC 1
+Cpd   inn 0 70p
+Rshot ns 0 {2*0.025852/Iamb}
+Vsh   ns 0 0
+Fshot inn 0 Vsh {shot}
+
+XU1  vref inn vcc 0 tia level2 Avol=1Meg GBW=10Meg Slew=7Meg ilimit=20m rail=0.02 En={8.7n*opn} Enk=555 In={3f*opn} Ink=555
+Rf   inn tia 100k
+Cf   inn tia 100p
+
+Chp  tia hp 10n
+Rhp  hp vref 100k
+XU2  hp gn vcc 0 ac level2 Avol=1Meg GBW=10Meg Slew=7Meg ilimit=20m rail=0.02 En={8.7n*opn} Enk=555 In={3f*opn} Ink=555
+Rg1  gn vref 1k
+Rg2  gn ac 10k
+
+.lib UniversalOpAmp2.lib
+
+.noise V(ac) Isig dec 50 10 100k
+.meas NOISE on_1024 FIND V(onoise) AT 1024
+.meas NOISE g_1024 FIND gain AT 1024
+.meas NOISE on_3072 FIND V(onoise) AT 3072
+.meas NOISE on_5120 FIND V(onoise) AT 5120
+.end

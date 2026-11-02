@@ -1,0 +1,64 @@
+* Lock-in amplifier - system simulation with Microchip's own MCP6021 macro model
+* Same circuit as lockin_tran.cir. Runs in ngspice (the engine inside KiCad), because the
+* model is written for PSpice and LTspice cannot solve the whole circuit with it.
+* Run:  python.exe ngrun_lockin.py
+
+.param fref=1024 T={1/fref}
+.param Ipk=10n
+.param Vos2=0 Vos3=0 Vos4=0 duty=0.5 delay=0
+
+Vcc  vcc 0 5
+
+* Virtual ground
+Rv1  vcc vmid 10k
+Rv2  vmid 0 10k
+Cv   vmid 0 10u
+XUv  vmid vref vcc 0 vref MCP6021
+* Second 2.5 V buffer, used only by the analog switch (U3B, net VSW in the KiCad schematic)
+XUs  vref vsw vcc 0 vsw MCP6021
+
+* Reference clock and its complement (74HC4060 output in the real circuit)
+Vclk ref 0 PULSE(0 5 0 1u 1u {T*duty} {T})
+Bnb  refb 0 V=5-V(ref)
+
+* Photodiode (BPW34, anode to ground): wanted signal plus interference
+Isig   inn 0 PULSE(0 {Ipk} {delay} 1u 1u {T/2} {T})
+Iamb   inn 0 DC 5u
+Iflick inn 0 SIN(0 1u 100)
+Cpd    inn 0 70p
+
+* Transimpedance stage
+XU1  vref inn vcc 0 tia MCP6021
+Rf   inn tia 100k
+Cf   inn tia 100p
+
+* High-pass and gain of 11 (Vo2: extra input offset for the error budget runs)
+Chp  tia hp 10n
+Rhp  hp vref 100k
+Vo2  hp hpo {Vos2}
+XU2  hpo gn vcc 0 ac MCP6021
+Rg1  gn vref 1k
+Rg2  gn ac 10k
+
+* Synchronous demodulator
+Ra   ac dn 10k
+Rb   dn dem 10k
+S1   ac dp ref 0 SW4053
+S2   vsw dp refb 0 SW4053
+Vo3  dp dpo {Vos3}
+XU3  dpo dn vcc 0 dem MCP6021
+.model SW4053 SW(Ron=100 Roff=100Meg Vt=2.5 Vh=0.5)
+
+* Two-pole low-pass and output buffer
+Rl1  dem f1 100k
+Cl1  f1 vref 1u
+Rl2  f1 f2 100k
+Cl2  f2 vref 1u
+Vo4  f2 f2o {Vos4}
+XU4  f2o out vcc 0 out MCP6021
+
+.include mcp6021_model/MCP6021.txt
+
+.save v(out) v(vref) v(tia) v(ac) v(dem) v(ref)
+.tran 20u 3 0 20u
+.end

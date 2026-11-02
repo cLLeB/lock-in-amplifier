@@ -1,0 +1,57 @@
+LTspice 26.1.1 for Windows
+Circuit: C:\Users\kyere\Documents\codes\Project_work\First\01-lock-in-amplifier\sim\lockin_noise.cir
+Start Time: Mon Oct  5 01:02:30 2026
+
+.step k=1
+solver = Normal
+Maximum thread count: 12
+tnom = 27
+temp = 27
+method = trap
+Direct Newton iteration failed to find operating point.
+Starting Gmin stepping
+Gmin stepping succeeded in finding the operating point.
+
+
+.step k=2
+Direct Newton iteration failed to find operating point.
+Starting Gmin stepping
+Gmin stepping succeeded in finding the operating point.
+
+
+.step k=3
+Direct Newton iteration failed to find operating point.
+Starting Gmin stepping
+Gmin stepping succeeded in finding the operating point.
+
+Total elapsed time: 0.089 seconds.
+Total iterations: 1013
+
+Files loaded:
+C:\Users\kyere\Documents\codes\Project_work\First\01-lock-in-amplifier\sim\lockin_noise.cir
+C:\Users\kyere\AppData\Local\LTspice\lib\sub\UniversalOpAmp2.lib
+
+
+Measurement: on_1024
+  step	V(onoise)	at
+     1	1.45449753411e-06	1024
+     2	4.79191778603e-07	1024
+     3	1.44482542011e-06	1024
+
+Measurement: g_1024
+  step	gain	at
+     1	1084675.328	1024
+     2	1084675.328	1024
+     3	1084675.328	1024
+
+Measurement: on_3072
+  step	V(onoise)	at
+     1	1.44310125982e-06	3072
+     2	4.66434004238e-07	3072
+     3	1.43533810962e-06	3072
+
+Measurement: on_5120
+  step	V(onoise)	at
+     1	1.40069295514e-06	5120
+     2	4.5357410174e-07	5120
+     3	1.39277948984e-06	5120

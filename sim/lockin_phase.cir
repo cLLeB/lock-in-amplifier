@@ -1,0 +1,59 @@
+* Lock-in amplifier - sensitivity to timing (phase) error and response time
+* The 10 nA signal is delayed relative to the reference by phi degrees and
+* switched on at t = 1 s. Same circuit as lockin_tran.cir.
+
+.param fref=1024 T={1/fref}
+.param Ipk=10n
+.param phi=0
+.step param phi list 0 10 20 45 90
+
+Vcc  vcc 0 5
+
+Rv1  vcc vmid 10k
+Rv2  vmid 0 10k
+Cv   vmid 0 10u
+XUv  vmid vref vcc 0 vref level2 Avol=1Meg GBW=10Meg Slew=7Meg ilimit=20m rail=0.02
+* Second 2.5 V buffer, used only by the analog switch (U3B, net VSW in the KiCad schematic)
+XUs  vref vsw vcc 0 vsw level2 Avol=1Meg GBW=10Meg Slew=7Meg ilimit=20m rail=0.02
+
+Vclk ref 0 PULSE(0 5 0 1u 1u {T/2} {T})
+Bnb  refb 0 V=5-V(ref)
+
+Vsc    sclk 0 PULSE(0 1 {phi/360*T} 1u 1u {T/2} {T})
+Bsig   inn 0 I=Ipk*V(sclk)*u(time-1)
+Iamb   inn 0 DC 5u
+Iflick inn 0 SIN(0 1u 100)
+Cpd    inn 0 70p
+
+XU1  vref inn vcc 0 tia level2 Avol=1Meg GBW=10Meg Slew=7Meg ilimit=20m rail=0.02
+Rf   inn tia 100k
+Cf   inn tia 100p
+
+Chp  tia hp 10n
+Rhp  hp vref 100k
+XU2  hp gn vcc 0 ac level2 Avol=1Meg GBW=10Meg Slew=7Meg ilimit=20m rail=0.02
+Rg1  gn vref 1k
+Rg2  gn ac 10k
+
+Ra   ac dn 10k
+Rb   dn dem 10k
+S1   ac dp ref 0 SW4053
+S2   vsw dp refb 0 SW4053
+XU3  dp dn vcc 0 dem level2 Avol=1Meg GBW=10Meg Slew=7Meg ilimit=20m rail=0.02
+.model SW4053 SW(Ron=100 Roff=100Meg Vt=2.5 Vh=0.5)
+
+Rl1  dem f1 100k
+Cl1  f1 vref 1u
+Rl2  f1 f2 100k
+Cl2  f2 vref 1u
+XU4  f2 out vcc 0 out level2 Avol=1Meg GBW=10Meg Slew=7Meg ilimit=20m rail=0.02
+
+.lib UniversalOpAmp2.lib
+
+.save V(out) V(vref)
+.tran 0 4 0 20u
+.meas TRAN vfinal AVG V(out,vref) FROM 3.5 TO 4
+.meas TRAN t10 WHEN V(out,vref)=0.1*vfinal TD=1 RISE=1
+.meas TRAN t90 WHEN V(out,vref)=0.9*vfinal TD=1 RISE=1
+.meas TRAN t99 WHEN V(out,vref)=0.99*vfinal TD=1 RISE=1
+.end

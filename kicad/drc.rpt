@@ -1,0 +1,21 @@
+** Drc report for lockin.kicad_pcb **
+** Created on 2026-10-06T20:46:23 **
+** Report includes: Errors, Warnings, Exclusions **
+
+** Found 1 DRC violations **
+[lib_footprint_mismatch]: Footprint 'Osram_DIL2_4.3x4.65mm_P5.08mm' does not match copy in library 'OptoDevice'
+    Local override; warning
+    @(108.0000 mm, 96.0000 mm): Footprint D1
+
+** Found 0 unconnected pads **
+
+** Found 0 Footprint errors **
+
+** Ignored checks **
+    - Footprint has no courtyard defined
+    - Track endpoint not centered on via
+    - Tuning profile track geometries
+    - Footprint doesn't match symbol's footprint filters
+    - Footprint component type doesn't match footprint pads
+
+** End of Report **

@@ -1,0 +1,39 @@
+LTspice 26.1.1 for Windows
+Circuit: C:\Users\kyere\Documents\codes\Project_work\First\01-lock-in-amplifier\sim\lockin_tran.net
+Start Time: Wed Oct  7 10:25:00 2026
+
+.step ipk=0
+solver = Normal
+Maximum thread count: 12
+tnom = 27
+temp = 27
+method = trap
+Direct Newton iteration failed to find operating point.
+Starting Gmin stepping
+Gmin stepping succeeded in finding the operating point.
+
+
+.step ipk=1e-08
+Direct Newton iteration failed to find operating point.
+Starting Gmin stepping
+Gmin stepping succeeded in finding the operating point.
+
+
+.step ipk=1e-07
+Direct Newton iteration failed to find operating point.
+Starting Gmin stepping
+Gmin stepping succeeded in finding the operating point.
+
+Total elapsed time: 16.881 seconds.
+Total iterations: 674670
+
+Files loaded:
+C:\Users\kyere\Documents\codes\Project_work\First\01-lock-in-amplifier\sim\lockin_tran.net
+C:\Users\kyere\AppData\Local\LTspice\lib\sub\UniversalOpAmp2.lib
+
+
+Measurement: vout_dc
+  step	AVG(V(out,vref))	FROM	TO
+     1	-4.81595474353e-07	2.5	3
+     2	0.00521818894247	2.5	3
+     3	0.0521761821269	2.5	3
